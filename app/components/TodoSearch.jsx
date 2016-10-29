@@ -1,30 +1,27 @@
 var React = require('react');
 
-var AddTodo = React.createClass({
-    handleSubmit: function (e) {
-        e.preventDefault();
+var TodoSearch = React.createClass({
+    handleSearch: function (e) {
+        var showCompleted = this.refs.showCompleted.checked;
+        var searchText = this.refs.searchText.value;
 
-        var todoText = this.refs.todoText.value;
-
-        if(todoText.length > 0) {
-            this.refs.todoText.value = '';
-            this.props.onAddTodo(todoText);
-        }
+        this.props.onSearch(showCompleted, searchText);
     },
    render: function () {
        return (
            <div>
-               <form onSubmit={this.handleSubmit}>
-                   <div>
-                       <input type="text" ref="todoText" placeholder="What do you need to do?"/>
-                   </div>
-                   <div>
-                       <button className="button hollow expanded">Add Todo</button>
-                   </div>
-               </form>
+               <div>
+                   <input type="search" ref="searchText" placeholder="Search Todos" onChange={this.handleSearch}/>
+               </div>
+               <div>
+                   <label>
+                       <input type="checkbox" ref="showCompleted" onChange={this.handleSearch} />
+                       Show completed Todos
+                   </label>
+               </div>
            </div>
        );
    }
 });
 
-module.exports = AddTodo;
+module.exports = TodoSearch;
